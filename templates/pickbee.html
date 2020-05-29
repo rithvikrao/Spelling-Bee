@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h2>{% block title %}Choose Letters{% endblock %}</h2>
+{% endblock %}
+
+{% block content %}
+  {% if error %}
+  <p class=error><strong>Error:</strong> {{ error }}
+  {% endif %}
+
+  <form method="POST">
+    <input name="letters"required>
+    <input type="submit">
+  </form>
+{% endblock %}

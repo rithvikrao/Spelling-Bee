@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% if error %}
+  <p class=error><strong>Error:</strong> {{ error }}</p>
+  {% endif %}
+
+  
+  {% if letters %}
+  <p><h3>Letters: {{ letters }}</h3></p> 
+  {% else %}
+  <p><strong>ERROR: NO LETTERS. YOU HAVE BROKEN SOMETHING.</strong></p>
+  {% endif %}
+
+  <p><h3>Score: {{ score }}</h3></p> 
+
+  <form method="POST">
+    <input name="word" required>
+    <input type="submit">
+  </form>
+
+  <p><strong>Found words:</strong></p>
+  
+  {% for word in wordsfound %}
+  <p class=wordfound>{{ word }}</p>
+  {% endfor %}
+{% endblock %}
