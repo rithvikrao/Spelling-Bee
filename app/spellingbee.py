@@ -73,7 +73,7 @@ def bee():
             error = "Already found this word!"
         elif len(word) < 4:
             error = "Word must be at least 4 letters long!"
-        elif word in words:
+        elif word.lower() in words:
             score_calc = score(word, letters)
             session['score'] += score_calc
             session['ranking'] = ranking(score_calc, session['maxscore'])
