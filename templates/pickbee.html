@@ -1,8 +1,14 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h2>{% block title %}Choose Letters{% endblock %}</h2>
+  <h1>Choose Letters</h1>
 {% endblock %}
+
+{% block title %}
+  Choose Letters | Spelling Bee
+{% endblock %}
+
+<p> Leave blank for random! </p>
 
 {% block content %}
   {% if error %}
@@ -10,7 +16,7 @@
   {% endif %}
 
   <form method="POST">
-    <input name="letters"required>
+    <input name="letters">
     <input type="submit">
   </form>
 {% endblock %}

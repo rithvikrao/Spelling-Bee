@@ -1,27 +1,67 @@
 {% extends 'base.html' %}
 
+<style>
+  .row {
+    display: flex;
+  }
+
+  .column {
+    flex: 70%;
+    text-align: center;
+  }
+
+  .spacing {
+    flex: 80%
+  }
+</style>
+
+{% block header %}
+  <!-- <h1>Play Bee</h1> -->
+{% endblock %}
+
+{% block title %}
+  Play Bee | Spelling Bee
+{% endblock %}
+
 {% block content %}
   {% if error %}
   <p class=error><strong>Error:</strong> {{ error }}</p>
   {% endif %}
 
-  
   {% if letters %}
-  <p><h3>Letters: {{ letters }}</h3></p> 
-  {% else %}
-  <p><strong>ERROR: NO LETTERS. YOU HAVE BROKEN SOMETHING.</strong></p>
-  {% endif %}
+      <h1 style='display:inline'>Letters: <u>{{ firstletter }}</u>{{ letters }}</h1><br><br>
+      {% else %}
+      <strong>ERROR: NO LETTERS. YOU HAVE BROKEN SOMETHING.</strong>
+      {% endif %}
 
-  <p><h3>Score: {{ score }}</h3></p> 
+  <div class="row">
+    <div class="column">
+      <p style='display:inline'><strong>Score: </strong></p><p style='display:inline'>{{ score }}</p><br>
 
-  <form method="POST">
-    <input name="word" required>
-    <input type="submit">
-  </form>
+      <p style='display:inline'><strong>Ranking: </strong></p><p style='display:inline'>{{ ranking }}</p>
 
-  <p><strong>Found words:</strong></p>
+      <br>
+
+      <br>
+
+      <form method="POST">
+        <input name="word" required style="width:auto">
+        <input type="submit" >
+      </form>
+    </div>
+    <div class ="spacing"></div>
+    <div class="column">
+      <p><strong>Found: </strong></p>
+      {% if wordsfound %}
+      <ul>
+      {% endif %}
+      {% for word in wordsfound %}
+      <li class=wordfound>{{ word }}</li>
+      {% endfor %}
+      {% if wordsfound %}
+      </ul>
+      {% endif %}
+    </div>
+  </div>
   
-  {% for word in wordsfound %}
-  <p class=wordfound>{{ word }}</p>
-  {% endfor %}
 {% endblock %}
