@@ -4,7 +4,7 @@ import os
 import string
 import random
 app = Flask(__name__)
-app.secret_key = b'_5#y2L"F4Q8zasdfff\n\xec]/'
+app.secret_key = os.urandom(32)
 # d = enchant.Dict("en_US")
 
 words = set(line.strip() for line in open('app/wordlist.txt'))
@@ -37,7 +37,6 @@ def pickbee():
                     break
                 used.add(letter.upper())
         if error is None:
-            app.secret_key = os.urandom(32)
             session['letters'] = letters
             session['wordsfound'] = []
             session['score'] = 0
