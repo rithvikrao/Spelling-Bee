@@ -1,1 +1,1 @@
-web: gunicorn app:spellingbee
+web: gunicorn wsgi:app
