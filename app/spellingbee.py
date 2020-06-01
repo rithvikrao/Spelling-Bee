@@ -49,6 +49,9 @@ def pickbee():
 @app.route('/bee', methods=['GET', 'POST'])
 def bee():
     error = None
+    if 'letters' not in session:
+        return redirect(url_for('pickbee'))
+
     letters = "".join([letter.upper() for letter in session.get('letters', 'ERROR: TRY AGAIN')])
     firstletter = letters[0]
     lastletters = letters[1:]
