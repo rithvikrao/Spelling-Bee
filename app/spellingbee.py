@@ -88,7 +88,7 @@ def score(word, letters):
     if length < 4: return 0
     if length == 4: return 1
     if length > 4: score = length
-    if all([letter in word for letter in letters]): score += 7
+    if all([letter.lower() in word.lower() for letter in letters]): score += 7
     return score
 
 def max_score(letters):
