@@ -49,7 +49,7 @@ def pickbee():
 def bee():
     error = None
     if 'letters' not in session:
-        return redirect(url_for('pickbee'))
+        return redirect(url_for('pickbee'), error="Oops sorry an error happened. I'm working on it...")
 
     letters = "".join([letter.upper() for letter in session.get('letters', 'ERROR: TRY AGAIN')])
     firstletter = letters[0]
