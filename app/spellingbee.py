@@ -76,7 +76,7 @@ def bee():
         elif word.lower() in words:
             score_calc = score(word, letters)
             session['score'] += score_calc
-            session['ranking'] = ranking(score_calc, session['maxscore'])
+            session['ranking'] = ranking(session['score'], session['maxscore'])
             session['wordsfound'].append(word)
         else:
             error = "Not a word!"
