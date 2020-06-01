@@ -13,6 +13,7 @@ words = set(line.strip() for line in open('app/wordlist.txt'))
 def pickbee():
     error = None
     if request.method == "POST":
+        session['letters'] = "BIRTHDAY"
         letters = request.form['letters']
         # if len(letters) != 7:
         #     error = "Must be exactly 7 letters!"
