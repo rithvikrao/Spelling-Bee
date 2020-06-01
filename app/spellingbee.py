@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8zasdfff\n\xec]/'
 # d = enchant.Dict("en_US")
 
-words = set(line.strip() for line in open('wordlist.txt'))
+words = set(line.strip() for line in open('app/wordlist.txt'))
 
 @app.route('/', methods=['GET', 'POST'])
 def pickbee():
