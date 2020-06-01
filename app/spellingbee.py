@@ -54,7 +54,7 @@ def bee():
     lastletters = letters[1:]
     if request.method == "POST":
         word = request.form['word']
-        print(word)
+        # print(word)
         valid1 = True
 
         for letter in word:
@@ -101,8 +101,8 @@ def max_score(letters):
                     counter += 1
                     if counter == len(word) and letters[0].lower() in word.lower():
                         maxscore += score(word, letters)
-                        print("Valid word: " + word)
-    print("Max score: " + str(maxscore))
+                        # print("Valid word: " + word)
+    # print("Max score: " + str(maxscore))
     return maxscore
 
 def has_pangram(letters):
