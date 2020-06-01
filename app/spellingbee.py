@@ -49,7 +49,7 @@ def pickbee():
 @app.route('/bee', methods=['GET', 'POST'])
 def bee():
     error = None
-    letters = "".join([letter.upper() for letter in session['letters']])
+    letters = "".join([letter.upper() for letter in session.get('letters', 'ERROR: TRY AGAIN')])
     firstletter = letters[0]
     lastletters = letters[1:]
     if request.method == "POST":
