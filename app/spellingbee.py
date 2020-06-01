@@ -81,7 +81,11 @@ def bee():
     return render_template('bee.html', error=error, firstletter=firstletter, letters=lastletters, wordsfound=session['wordsfound'], score=session['score'], ranking=session['ranking'])
 
 def score(word, letters):
-    score = len(word) - 3
+    length = len(word)
+    score = 0
+    if length < 4: return 0
+    if length == 4: return 1
+    if length > 4: score = length
     if all([letter in word for letter in letters]): score += 7
     return score
 
