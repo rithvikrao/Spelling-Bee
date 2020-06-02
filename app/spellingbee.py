@@ -1,11 +1,9 @@
 from flask import Flask, render_template, request, flash, url_for, redirect, session
 import os
-# import enchant
 import string
 import random
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
-# d = enchant.Dict("en_US")
 
 words = set(line.strip() for line in open('app/wordlist.txt'))
 
@@ -13,10 +11,7 @@ words = set(line.strip() for line in open('app/wordlist.txt'))
 def pickbee():
     error = None
     if request.method == "POST":
-        session['letters'] = "BIRTHDAY"
         letters = request.form['letters']
-        # if len(letters) != 7:
-        #     error = "Must be exactly 7 letters!"
         if letters == '':
             s = set(string.ascii_lowercase)
             vowels = {'a', 'e', 'i', 'o', 'u'}
@@ -107,8 +102,6 @@ def max_score(letters):
                     counter += 1
                     if counter == len(word) and letters[0].lower() in word.lower():
                         maxscore += score(word, letters)
-                        # print("Valid word: " + word)
-    # print("Max score: " + str(maxscore))
     return maxscore
 
 def has_pangram(letters):
@@ -131,23 +124,13 @@ def has_pangram(letters):
 def ranking(score, maxscore):
     score *= 1.3
     
-    if score == maxscore:
-        return "Queen Bee!"
-    if score > 0.7 * maxscore:
-        return "Genius"
-    if score > 0.5 * maxscore:
-        return "Amazing"
-    if score > 0.4 * maxscore:
-        return "Great"
-    if score > 0.25 * maxscore:
-        return "Nice"
-    if score > 0.15 * maxscore:
-        return "Solid"
-    if score > 0.075 * maxscore:
-        return "Good"
-    if score > 0.05 * maxscore:
-        return "Moving Up"
-    if score > 0.02 * maxscore:
-        return "Good Start"
-    else:
-        return "Beginner"
+    if score == maxscore: return "Queen Bee!"
+    if score > 0.7 * maxscore: return "Genius"
+    if score > 0.5 * maxscore: return "Amazing"
+    if score > 0.4 * maxscore: return "Great"
+    if score > 0.25 * maxscore: return "Nice"
+    if score > 0.15 * maxscore: return "Solid"
+    if score > 0.075 * maxscore: return "Good"
+    if score > 0.05 * maxscore: return "Moving Up"
+    if score > 0.02 * maxscore: return "Good Start"
+    else: return "Beginner"
