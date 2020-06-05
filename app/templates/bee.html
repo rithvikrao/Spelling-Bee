@@ -56,15 +56,18 @@
     <div class ="spacing"></div>
     <div class="column">
       <p><strong>Found: </strong></p>
-      {% if wordsfound %}
-      <ul>
-      {% endif %}
-      {% for word in wordsfound %}
-      <li class=wordfound>{{ word }}</li>
-      {% endfor %}
-      {% if wordsfound %}
-      </ul>
-      {% endif %}
+      
+      <div style="height:80%;width:120px;overflow:auto;">
+        {% if wordsfound %}
+        <ul>
+        {% endif %}
+        {% for word in wordsfound %}
+        <li class=wordfound>{{ word }}</li>
+        {% endfor %}
+        {% if wordsfound %}
+        </ul>
+        {% endif %}
+      </div>
     </div>
   </div>
   
