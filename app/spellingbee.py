@@ -20,10 +20,8 @@ def pickbee():
                 n1 = random.choice([1,2])
                 n2 = random.choice([4,5,6])
                 letters = list(set(random.sample(vowels, n1)) | set(random.sample(consonants, n2)))
-                if has_pangram(letters):
-                    break
-        elif not letters.isalpha():
-            error = "Can only use letters of the alphabet!"
+                if has_pangram(letters): break
+        elif not letters.isalpha(): error = "Can only use letters of the alphabet!"
         else:
             used = set()
             for letter in letters:
@@ -43,38 +41,29 @@ def pickbee():
 @app.route('/bee', methods=['GET', 'POST'])
 def bee():
     error = None
-    if 'letters' not in session:
-        return redirect(url_for('pickbee'))
+    if 'letters' not in session: return redirect(url_for('pickbee'))
 
     letters = "".join([letter.upper() for letter in session.get('letters', 'ERROR: TRY AGAIN')])
     firstletter = letters[0]
     lastletters = letters[1:]
+
     if request.method == "POST":
         word = request.form['word']
-        # print(word)
-        valid1 = True
 
-        for letter in word:
-            if letter.upper() not in letters:
-                valid1 = False
-
+        valid1 = all(letter.upper() in letters for letter in word)
         valid2 = letters[0].upper() in word.upper()
 
-        if not valid1:
-            error = "You can only use the letters above"
-        elif not valid2:
-            error = "You must use the first letter above"
-        elif word in session['wordsfound']:
-            error = "Already found this word!"
-        elif len(word) < 4:
-            error = "Word must be at least 4 letters long!"
+        if not valid1: error = "You can only use the letters above"
+        elif not valid2: error = "You must use the first letter above"
+        elif word in session['wordsfound']: error = "Already found this word!"
+        elif len(word) < 4: error = "Word must be at least 4 letters long!"
         elif word.lower() in words:
             score_calc = score(word, letters)
             session['score'] += score_calc
             session['ranking'] = ranking(session['score'], session['maxscore'])
             session['wordsfound'].append(word)
-        else:
-            error = "Not a word!"
+        else: error = "Not a word!"
+
     return render_template('bee.html', error=error, firstletter=firstletter, letters=lastletters, wordsfound=session['wordsfound'], score=session['score'], ranking=session['ranking'])
 
 def score(word, letters):
@@ -90,14 +79,12 @@ def max_score(letters):
     maxscore = 0
     s = set(string.ascii_lowercase)
     for letter in letters:
-        if letter.lower() in s:
-            s.remove(letter.lower())
+        if letter.lower() in s: s.remove(letter.lower())
     for word in words:
         if len(word) > 4:
             counter = 0
             for letter in word:
-                if letter in s:
-                    break
+                if letter in s: break
                 else:
                     counter += 1
                     if counter == len(word) and letters[0].lower() in word.lower():
@@ -107,14 +94,12 @@ def max_score(letters):
 def has_pangram(letters):
     s = set(string.ascii_lowercase)
     for letter in letters:
-        if letter.lower() in s:
-            s.remove(letter.lower())
+        if letter.lower() in s: s.remove(letter.lower())
     for word in words:
         if len(word) >= len(letters):
             counter = 0
             for letter in word:
-                if letter in s:
-                    break
+                if letter in s: break
                 else:
                     counter += 1
                     if counter == len(word) and all([letter.lower() in word.lower() for letter in letters]):
