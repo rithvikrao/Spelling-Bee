@@ -64,7 +64,7 @@ def bee():
             session['wordsfound'].append(word)
         else: error = "Not a word!"
 
-    return render_template('bee.html', error=error, firstletter=firstletter, letters=lastletters, wordsfound=session['wordsfound'], score=session['score'], ranking=session['ranking'])
+    return render_template('bee.html', error=error, firstletter=firstletter, letters=lastletters, wordsfound=sorted(session['wordsfound']), score=session['score'], ranking=session['ranking'])
 
 def score(word, letters):
     length = len(word)
