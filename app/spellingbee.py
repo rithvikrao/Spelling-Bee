@@ -107,9 +107,10 @@ def has_pangram(letters):
     return False
 
 def ranking(score, maxscore):
-    score *= 1.3
-    
     if score == maxscore: return "Queen Bee!"
+
+    score *= 1.5
+    
     if score > 0.7 * maxscore: return "Genius"
     if score > 0.5 * maxscore: return "Amazing"
     if score > 0.4 * maxscore: return "Great"
