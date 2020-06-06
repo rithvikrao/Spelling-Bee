@@ -78,10 +78,10 @@ def score(word, letters):
 def max_score(letters):
     maxscore = 0
     s = set(string.ascii_lowercase)
-    for letter in letters:
+    for letter in letters: 
         if letter.lower() in s: s.remove(letter.lower())
     for word in words:
-        if len(word) > 4:
+        if len(word) >= 4:
             counter = 0
             for letter in word:
                 if letter in s: break
@@ -109,7 +109,7 @@ def has_pangram(letters):
 def ranking(score, maxscore):
     if score == maxscore: return "Queen Bee!"
 
-    score *= 1.5
+    score *= 1.7
     
     if score > 0.7 * maxscore: return "Genius"
     if score > 0.5 * maxscore: return "Amazing"
