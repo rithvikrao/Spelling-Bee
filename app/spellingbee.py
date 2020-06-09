@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash, url_for, redirect, session, logging
+from flask import Flask, render_template, request, flash, url_for, redirect, session
 import os
 import string
 import random
