@@ -35,19 +35,19 @@
       <strong>ERROR: NO LETTERS. YOU HAVE BROKEN SOMETHING.</strong>
       {% endif %}
 
+      <form method="POST" style="text-align: center;">
+        <input type="submit" name="action" value="Shuffle">
+      </form>
+
   <div class="row">
     <div class="column">
       <p style='display:inline'><strong>Score: </strong></p><p style='display:inline'>{{ score }}</p><br>
-
       <p style='display:inline'><strong>Ranking: </strong></p><p style='display:inline'>{{ ranking }}</p>
-
       <br>
-
       <br>
-
       <form method="POST">
         <input name="word" required style="width:auto">
-        <input type="submit" >
+        <input type="submit" name="action" value="Submit">
       </form>
     </div>
     <div class ="spacing"></div>

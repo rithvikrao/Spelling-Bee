@@ -47,22 +47,25 @@ def bee():
     firstletter = letters[0]
     lastletters = letters[1:]
 
-    if request.method == "POST":
-        word = request.form['word']
-
-        valid1 = all(letter.upper() in letters for letter in word)
-        valid2 = letters[0].upper() in word.upper()
-
-        if not valid1: error = "You can only use the letters above"
-        elif not valid2: error = "You must use the first letter above"
-        elif word in session['wordsfound']: error = "Already found this word!"
-        elif len(word) < 4: error = "Word must be at least 4 letters long!"
-        elif word.lower() in words:
-            score_calc = score(word, letters)
-            session['score'] += score_calc
-            session['ranking'] = ranking(session['score'], session['maxscore'])
-            session['wordsfound'].append(word)
-        else: error = "Not a word!"
+    if request.method == "POST": 
+        if request.form['action'] == 'Submit':
+            word = request.form['word']
+            valid1 = all(letter.upper() in letters for letter in word)
+            valid2 = letters[0].upper() in word.upper()
+            if not valid1: error = "You can only use the letters above"
+            elif not valid2: error = "You must use the first letter above"
+            elif word in session['wordsfound']: error = "Already found this word!"
+            elif len(word) < 4: error = "Word must be at least 4 letters long!"
+            elif word.lower() in words:
+                score_calc = score(word, letters)
+                session['score'] += score_calc
+                session['ranking'] = ranking(session['score'], session['maxscore'])
+                session['wordsfound'].append(word)
+            else: error = "Not a word!"
+            
+        if request.form['action'] == 'Shuffle':
+            lastletters = ''.join(random.sample(lastletters, len(lastletters)))
+            session['letters'] = firstletter + lastletters
 
     return render_template('bee.html', error=error, firstletter=firstletter, letters=lastletters, wordsfound=sorted(session['wordsfound']), score=session['score'], ranking=session['ranking'])
 
