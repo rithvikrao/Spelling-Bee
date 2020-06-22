@@ -60,7 +60,7 @@ def bee():
                 score_calc = score(word, letters)
                 session['score'] += score_calc
                 session['ranking'] = ranking(session['score'], session['maxscore'])
-                session['wordsfound'].append(word)
+                session['wordsfound'].append(word.lower())
             else: error = "Not a word!"
             
         if request.form['action'] == 'Shuffle':
