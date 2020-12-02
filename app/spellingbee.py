@@ -31,7 +31,7 @@ def pickbee():
                 used.add(letter.upper())
         if error is None:
             session['letters'] = letters
-            session['wordsfound'] = set()
+            session['wordsfound'] = []
             session['score'] = 0
             session['maxscore'] = max_score(letters)
             session['ranking'] = ranking(0, session['maxscore'])
@@ -60,7 +60,7 @@ def bee():
                 score_calc = score(word, letters)
                 session['score'] += score_calc
                 session['ranking'] = ranking(session['score'], session['maxscore'])
-                session['wordsfound'].add(word.lower())
+                session['wordsfound'].append(word.lower())
             else: error = "Not a word!"
             
         if request.form['action'] == 'Shuffle':
@@ -68,7 +68,7 @@ def bee():
             session['letters'] = firstletter + lastletters
 
     return render_template('bee.html', error=error, firstletter=firstletter, letters=lastletters, 
-                           wordsfound=sorted(list(session['wordsfound'])), score=session['score'], ranking=session['ranking'])
+                           wordsfound=sorted(session['wordsfound']), score=session['score'], ranking=session['ranking'])
 
 def score(word, letters):
     length = len(word)
