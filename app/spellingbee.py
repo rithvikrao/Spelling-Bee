@@ -3,9 +3,9 @@ import os
 import string
 import random
 import pandas as pd
-import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
+# import sys
+# reload(sys)
+# sys.setdefaultencoding('utf-8')
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
 
