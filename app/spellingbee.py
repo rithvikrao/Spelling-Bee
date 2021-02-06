@@ -2,10 +2,13 @@ from flask import Flask, render_template, request, flash, url_for, redirect, ses
 import os
 import string
 import random
+import pandas as pd
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
 
 words = set(line.strip() for line in open('app/wordlist.txt'))
+df = pd.read_csv("app/words.csv", names=['A'])
+ru_wds = df.A.to_list()
 
 @app.route('/', methods=['GET', 'POST'])
 def pickbee():
@@ -129,8 +132,11 @@ def ranking(score, maxscore):
 def wd():
     wds = []
     if request.method == "POST":
-        wds = random.sample(words, int(request.form['words']))
+        length = int(request.form['words'])
+        if len(ru_wds) - len(session.get('used_words', [])) < length:
+            session['used_words'] = []
+        wds = random.sample(ru_wds, length)
         while len(set(wds).intersection(set(session.get('used_words', [])))) != 0:
-            wds = random.sample(words, int(request.form['words']))
+            wds = random.sample(ru_wds, length)
         session['used_words'] = session.get('used_words', []) + wds
     return render_template('words.html', wds=wds)
