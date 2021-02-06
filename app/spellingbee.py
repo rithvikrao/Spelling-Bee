@@ -3,11 +3,14 @@ import os
 import string
 import random
 import pandas as pd
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
 
 words = set(line.strip() for line in open('app/wordlist.txt'))
-df = pd.read_csv("app/words.csv", names=['A'])
+df = pd.read_excel("app/words.xlsx", names=['A'])
 ru_wds = df.A.to_list()
 
 @app.route('/', methods=['GET', 'POST'])
