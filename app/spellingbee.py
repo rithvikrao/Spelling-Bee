@@ -129,4 +129,5 @@ def ranking(score, maxscore):
 def wd():
     wds = []
     if request.method == "POST": wds = random.sample(words, int(request.form['words']))
+    print(wds)
     return render_template('words.html', wds=wds)
