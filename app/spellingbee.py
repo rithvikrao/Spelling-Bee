@@ -128,6 +128,9 @@ def ranking(score, maxscore):
 @app.route('/words', methods=['GET', 'POST'])
 def wd():
     wds = []
-    if request.method == "POST": wds = random.sample(words, int(request.form['words']))
-    print(wds)
+    if request.method == "POST":
+        wds = random.sample(words, int(request.form['words']))
+        while len(set(wds).intersection(set(session.get('used_words', [])))) != 0:
+            wds = random.sample(words, int(request.form['words']))
+        session['used_words'] = session.get('used_words', []) + wds
     return render_template('words.html', wds=wds)
