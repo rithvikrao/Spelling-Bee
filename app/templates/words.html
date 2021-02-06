@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>Input Number of Words</h1>
+{% endblock %}
+
+{% block title %}
+  Choose Letters | Spelling Bee
+{% endblock %}
+
+{% block content %}
+  {% if error %}
+  <p class=error><strong>Error:</strong> {{ error }}
+  {% endif %}
+
+  <form method="POST">
+    <input type="number" name="words">
+    <input type="submit">
+  </form>
+{% endblock %}
+
+<div style="height:400px;width:120%;overflow:auto;">
+    {% if wds %}
+    <ul>
+    {% endif %}
+    {% for word in wds %}
+    <li class=wordfound>{{ word }}</li>
+    {% endfor %}
+    {% if wds %}
+    </ul>
+    {% endif %}
+  </div>

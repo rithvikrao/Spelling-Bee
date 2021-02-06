@@ -124,3 +124,9 @@ def ranking(score, maxscore):
     if score > 0.05 * maxscore: return "Moving Up"
     if score > 0.02 * maxscore: return "Good Start"
     else: return "Beginner"
+
+@app.route('/words', methods=['GET', 'POST'])
+def wd():
+    wds = []
+    if request.method == "POST": wds = random.sample(words, request.form['words'])
+    return render_template('words.html', wds=wds)
